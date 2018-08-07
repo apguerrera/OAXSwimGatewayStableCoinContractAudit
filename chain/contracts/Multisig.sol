@@ -104,8 +104,8 @@ contract MultiSigWallet {
     /// @dev Contract constructor sets initial owners and required number of confirmations.
     /// @param _owners List of initial owners.
     /// @param _required Number of required confirmations.
-    function MultiSigWallet(address[] _owners, uint _required)
-        public
+    constructor(address[] _owners, uint _required)  // AG: Converted function to constructor
+
         validRequirement(_owners.length, _required)
     {
         for (uint i=0; i<_owners.length; i++) {
@@ -392,7 +392,7 @@ contract MultiSigWallet {
 
 /// @title Multisignature wallet factory - Allows creation of multisig wallet.
 /// @author Stefan George - <stefan.george@consensys.net>
-contract MultiSigWalletFactory is Factory {
+contract MultiSigWalletFactory {    // was 'is Factory' yet no contract found
 
     /*
      * Public functions
@@ -406,26 +406,6 @@ contract MultiSigWalletFactory is Factory {
         returns (address wallet)
     {
         wallet = new MultiSigWallet(_owners, _required);
-        register(wallet);
-    }
-}
-
-/// @title Multisignature wallet factory - Allows creation of multisig wallet.
-/// @author Stefan George - <stefan.george@consensys.net>
-contract MultiSigWalletFactory is Factory {
-
-    /*
-     * Public functions
-     */
-    /// @dev Allows verified creation of multisignature wallet.
-    /// @param _owners List of initial owners.
-    /// @param _required Number of required confirmations.
-    /// @return Returns wallet address.
-    function create(address[] _owners, uint _required)
-        public
-        returns (address wallet)
-    {
-        wallet = new MultiSigWallet(_owners, _required);
-        register(wallet);
+        // register(wallet);  AG: No function called register
     }
 }
