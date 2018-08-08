@@ -1,4 +1,13 @@
-pragma solidity ^0.4.23;   // AG: changed to 0.4.23
+# Membership
+
+Source file [../../chain/contracts/Membership.sol](../../chain/contracts/Membership.sol).
+
+<br />
+
+<hr />
+
+```javascript
+pragma solidity ^0.4.0;
 
 import "AddressStatus.sol";
 
@@ -11,6 +20,8 @@ contract MockOAXMembership is AddressStatus, MembershipInterface {
     }
 
     function isMember(address guy) public returns (bool) {
-        return status[guy];   // AG: changed from function() to index[]
+        return status(guy);
     }
 }
+
+```

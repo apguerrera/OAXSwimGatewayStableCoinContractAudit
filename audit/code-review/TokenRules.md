@@ -1,3 +1,12 @@
+# TokenRules
+
+Source file [../../chain/contracts/TokenRules.sol](../../chain/contracts/TokenRules.sol).
+
+<br />
+
+<hr />
+
+```javascript
 pragma solidity 0.4.23;
 
 import "dappsys.sol";
@@ -99,3 +108,5 @@ contract FullKycRules is BoundaryKycRules {
         return true;
     }
 }
+
+```
