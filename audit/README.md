@@ -159,8 +159,8 @@ in [test/test1results.txt](test/test1results.txt) and the detailed output saved 
   * [ ] contract FiatToken is DSToken, ERC20Auth, TokenAuth
 * [ ] [code-review/Gate.md](code-review/Gate.md)
   * [ ] contract Gate is DSSoloVault, ERC20Events, DSMath, DSStop
-* [ ] [code-review/GateRoles.md](code-review/GateRoles.md)
-  * [ ] contract GateRoles is DSRoles
+* [x] [code-review/GateRoles.md](code-review/GateRoles.md)
+  * [x] contract GateRoles is DSRoles
 * [ ] [code-review/GateWithFee.md](code-review/GateWithFee.md)
   * [ ] contract GateWithFee is Gate
 * [ ] [code-review/Kyc.md](code-review/Kyc.md)
