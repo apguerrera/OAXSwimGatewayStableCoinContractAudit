@@ -1,4 +1,4 @@
-var KycOutput={
+var kycOutput={
   "contracts" : 
   {
     "Kyc.sol:AddressControlStatus" : 

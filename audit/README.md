@@ -1,10 +1,16 @@
 # OAX Swim Gateway Stable Coin Contract Audit
 
-## Summary
-
 Status: Work in progress
 
-Commits from [swim-gateway/stable-coin master-gitlab branch](https://github.com/swim-gateway/stable-coin/tree/master-gitlab) in commits [75cc80c](https://github.com/swim-gateway/stable-coin/commit/75cc80c5d494625d3e7262756973ec0394dfcf11) and [a53dce5](https://github.com/swim-gateway/stable-coin/commit/a53dce5fb53f2ff4461d15c2e3450faf0a9b61ac). Additionally, the pull request #1 [https://github.com/swim-gateway/stable-coin/pull/1/commits/daa965ad77e41629d6389879e120e68eb34c3593](https://github.com/swim-gateway/stable-coin/pull/1/commits/daa965ad77e41629d6389879e120e68eb34c3593) was merged into this branch.
+## Summary
+
+[OAX](http://oax.org/) has developed a set of smart contracts for their swim gateway stable coins.
+
+Bok Consulting Pty Ltd was commissioned to perform an audit on these Ethereum smart contracts.
+
+This audit has been conducted on the source code from [swim-gateway/stable-coin master-gitlab branch](https://github.com/swim-gateway/stable-coin/tree/master-gitlab) in commits [75cc80c](https://github.com/swim-gateway/stable-coin/commit/75cc80c5d494625d3e7262756973ec0394dfcf11), [a53dce5](https://github.com/swim-gateway/stable-coin/commit/a53dce5fb53f2ff4461d15c2e3450faf0a9b61ac) and [daa965a](https://github.com/swim-gateway/stable-coin/commit/daa965ad77e41629d6389879e120e68eb34c3593).
+
+**TODO** Check that no potential vulnerabilities have been identified in the smart contracts.
 
 <br />
 
@@ -16,8 +22,6 @@ Commits from [swim-gateway/stable-coin master-gitlab branch](https://github.com/
 * [Recommendations](#recommendations)
 * [Potential Vulnerabilities](#potential-vulnerabilities)
 * [Scope](#scope)
-* [Limitations](#limitations)
-* [Due Diligence](#due-diligence)
 * [Risks](#risks)
 * [Testing](#testing)
 * [Code Review](#code-review)
@@ -28,9 +32,14 @@ Commits from [swim-gateway/stable-coin master-gitlab branch](https://github.com/
 
 ## Recommendations
 
-* [] **HIGH IMPORTANCE**
-* [] **MEDIUM IMPORTANCE**
-* [] **LOW IMPORTANCE**
+* [ ] **MEDIUM IMPORTANCE** Add something like `event SetUserRole(address indexed who, bytes32 indexed userRoles);` to *DSRoles* and log this event using `emit SetUserRole(who, _user_roles[who]);` in `DARoles.setUserRole(...)`. This is so any changes to the user roles can be detected. See [test/modifiedContracts/dappsys.sol#L284-L285](test/modifiedContracts/dappsys.sol#L284-L285) and [test/modifiedContracts/dappsys.sol#L365-L366](test/modifiedContracts/dappsys.sol#L365-L366). Any changes can be detected like [https://github.com/bokkypoobah/OAXSwimGatewayStableCoinContractAudit/blob/e80189b42bd24f83fae73b90c635d48d0fbd9f71/audit/test/test1results.txt#L175-L177](https://github.com/bokkypoobah/OAXSwimGatewayStableCoinContractAudit/blob/e80189b42bd24f83fae73b90c635d48d0fbd9f71/audit/test/test1results.txt#L175-L177) using code like [https://github.com/bokkypoobah/OAXSwimGatewayStableCoinContractAudit/blob/e80189b42bd24f83fae73b90c635d48d0fbd9f71/audit/test/functions.js#L483-L488](https://github.com/bokkypoobah/OAXSwimGatewayStableCoinContractAudit/blob/e80189b42bd24f83fae73b90c635d48d0fbd9f71/audit/test/functions.js#L483-L488)
+* [ ] **MEDIUM IMPORTANCE** Add similar code to *DSRoles* to track changes to the 4 mapping data structures
+* [ ] **MEDIUM IMPORTANCE** Add `emit Transfer(address(0), guy, wad)` to `FiatToken.mint(...)`
+* [ ] **MEDIUM IMPORTANCE** Add `emit Transfer(guy, address(0), wad)` to `FiatToken.burn(...)`
+* [ ] **MEDIUM IMPORTANCE** Remove the duplicate *MultiSigWalletFactory* from the bottom of [../chain/contracts/Multisig.sol](../chain/contracts/Multisig.sol)
+* [ ] **LOW IMPORTANCE** Add event to log calls to `TransferFeeController.setDefaultTransferFee(...)`
+* [ ] **LOW IMPORTANCE** Set `Kyc:ControllableKycAmlRule.addressControlStatus` to *public*
+* [ ] **LOW IMPORTANCE** Set `Kyc:BoundaryKycAmlRule.kycAmlStatus` to *public*
 
 <br />
 
@@ -38,7 +47,7 @@ Commits from [swim-gateway/stable-coin master-gitlab branch](https://github.com/
 
 ## Potential Vulnerabilities
 
-No potential vulnerabilities have been identified in the crowdsale, token and vesting contracts.
+**TODO** Check that no potential vulnerabilities have been identified in the smart contracts.
 
 <br />
 
@@ -46,8 +55,8 @@ No potential vulnerabilities have been identified in the crowdsale, token and ve
 
 ## Scope
 
-This audit is into the technical aspects of the crowdsale contracts. The primary aim of this audit is to ensure that funds
-contributed to these contracts are not easily attacked or stolen by third parties. The secondary aim of this audit is to
+This audit is into the technical aspects of the OAX swim gateway stable coin smart contracts. The primary aim of this audit is to ensure that funds
+stored in these contracts are not easily attacked or stolen by third parties. The secondary aim of this audit is to
 ensure the coded algorithms work as expected. This audit does not guarantee that that the code is bugfree, but intends to
 highlight any areas of weaknesses.
 
@@ -55,41 +64,9 @@ highlight any areas of weaknesses.
 
 <hr />
 
-## Limitations
-
-This audit makes no statements or warranties about the viability of the OneLedger's business proposition, the individuals
-involved in this business or the regulatory regime for the business model.
-
-<br />
-
-<hr />
-
-## Due Diligence
-
-As always, potential participants in any crowdsale are encouraged to perform their due diligence on the business proposition
-before funding any crowdsales.
-
-Potential participants are also encouraged to only send their funds to the official crowdsale Ethereum address, published on
-the crowdsale beneficiary's official communication channel.
-
-Scammers have been publishing phishing address in the forums, twitter and other communication channels, and some go as far as
-duplicating crowdsale websites. Potential participants should NOT just click on any links received through these messages.
-Scammers have also hacked the crowdsale website to replace the crowdsale contract address with their scam address.
-
-Potential participants should also confirm that the verified source code on EtherScan.io for the published crowdsale address
-matches the audited source code, and that the deployment parameters are correctly set, including the constant parameters.
-
-<br />
-
-<hr />
-
 ## Risks
 
-Ethers contributed to the crowdsale contract are transferred directly to the crowdsale wallet, and tokens are generated for the contributing account. This reduces the severity of any attacks on the crowdsale contract.
-
-The token contract is a simple extension of the OpenZeppelin library token contract that is used by many other tokens.
-
-Once the vesting contract is deployed, and tokens transferred to the vesting contract, only the beneficiary or the vesting contract owner is able to execute the token release function when the tokens are vested.
+**TODO**
 
 <br />
 
@@ -99,11 +76,76 @@ Once the vesting contract is deployed, and tokens transferred to the vesting con
 
 Details of the testing environment can be found in [test](test).
 
+[../chain/index.js](../chain/index.js) and [../chain/lib/deployerProd.js](../chain/lib/deployerProd.js) were used as a guide for the security model used with this set of contracts.
+
 The following functions were tested using the script [test/01_test1.sh](test/01_test1.sh) with the summary results saved
 in [test/test1results.txt](test/test1results.txt) and the detailed output saved in [test/test1output.txt](test/test1output.txt):
 
-* [x] Deploy crowdsale contract
-  * [x] Deploy token contract
+* [x] Group #1 deployment
+  * [x] `GateRoles()`
+  * [x] `FiatTokenGuard()`
+* [x] Group #2 deployment
+  * [x] `KycAmlStatus(GateRoles)`
+  * [x] `AddressControlStatus(GateRoles)`
+  * [x] `TransferFeeController(GateRoles, 0, 0)`
+  * [x] `LimitSetting(GateRoles, {mint limit}, {burn limit}, ...)`
+* [x] Group #3 deployment
+  * [x] `NoKycAmlRule(AddressControlStatus)`
+  * [x] `BoundaryKycAmlRule(AddressControlStatus, KycAmlStatus)`
+  * [x] `FullKycAmlRule(AddressControlStatus, KycAmlStatus)`
+  * [x] `MockMembershipAuthority()`
+  * [x] `MembershipWithBoundaryKycAmlRule(GateRoles, AddressControlStatus, KycAmlStatus, MockMembershipAuthority)`
+  * [x] `LimitController(FiatTokenGuard, LimitSetting)`
+  * [x] `FiatToken(FiatTokenGuard, {symbol}, {name}, {transferFeeCollector}, TransferFeeController)`
+* [x] Set User Roles
+  * [x] `GateRoles([sysAdmin=SYSTEM_ADMIN_ROLE(1), kycOperator=KYC_OPERATOR_ROLE(2), moneyOperator=MONEY_OPERATOR_ROLE(3)])`
+* [x] Set Roles Rules #1
+  * [x] `GateRoles.setRoleCapability(KYC_OPERATOR_ROLE, KycAmlStatus, sig("setKycVerified(address,bool)"))`
+  * [x] `GateRoles.setRoleCapability(MONEY_OPERATOR_ROLE, AddressControlStatus, sig("freezeAddress(address)"))`
+  * [x] `GateRoles.setRoleCapability(MONEY_OPERATOR_ROLE, AddressControlStatus, sig("unfreezeAddress(address)"))`
+  * [x] `GateRoles.setRoleCapability(SYSTEM_ADMIN_ROLE, LimitSetting, sig("setSettingDefaultDelayHours(uint256)"))`
+  * [x] `GateRoles.setRoleCapability(SYSTEM_ADMIN_ROLE, LimitSetting, sig("setLimitCounterResetTimeOffset(int256)"))`
+  * [x] `GateRoles.setRoleCapability(SYSTEM_ADMIN_ROLE, LimitSetting, sig("setDefaultMintDailyLimit(uint256)"))`
+  * [x] `GateRoles.setRoleCapability(SYSTEM_ADMIN_ROLE, LimitSetting, sig("setDefaultBurnDailyLimit(uint256)"))`
+  * [x] `GateRoles.setRoleCapability(SYSTEM_ADMIN_ROLE, LimitSetting, sig("setCustomMintDailyLimit(address,uint256)"))`
+  * [x] `GateRoles.setRoleCapability(SYSTEM_ADMIN_ROLE, LimitSetting, sig("setCustomBurnDailyLimit(address,uint256)"))`
+  * [x] `GateRoles.setRoleCapability(SYSTEM_ADMIN_ROLE, transferFeeController, sig("setDefaultTransferFee(uint256,uint256)"))`
+  * [x] `GateRoles.setRoleCapability(SYSTEM_ADMIN_ROLE, membershipWithBoundaryKycAmlRule, sig("setMembershipAuthority(address)"))`
+* [x] Group #4 deployment
+  * [x] `GateWithFee(GateRoles, FiatToken, LimitController, {mintFeeCollector}, {burnFeeCollector}, TransferFeeController)`
+* [x] Set Roles Rules #2
+  * [x] `GateRoles.setRoleCapability(MONEY_OPERATOR_ROLE, GateWithFee, sig("mint(uint256)"))`
+  * [x] `GateRoles.setRoleCapability(MONEY_OPERATOR_ROLE, GateWithFee, sig("mint(address,uint256)"))`
+  * [x] `GateRoles.setRoleCapability(MONEY_OPERATOR_ROLE, GateWithFee, sig("burn(uint256)"))`
+  * [x] `GateRoles.setRoleCapability(MONEY_OPERATOR_ROLE, GateWithFee, sig("burn(address,uint256)"))`
+  * [x] `GateRoles.setRoleCapability(MONEY_OPERATOR_ROLE, GateWithFee, sig("start()"))`
+  * [x] `GateRoles.setRoleCapability(MONEY_OPERATOR_ROLE, GateWithFee, sig("stop()"))`
+  * [x] `GateRoles.setRoleCapability(MONEY_OPERATOR_ROLE, GateWithFee, sig("startToken()"))`
+  * [x] `GateRoles.setRoleCapability(MONEY_OPERATOR_ROLE, GateWithFee, sig("stopToken()"))`
+  * [x] `GateRoles.setRoleCapability(SYSTEM_ADMIN_ROLE, GateWithFee, sig("setERC20Authority(address)"))`
+  * [x] `GateRoles.setRoleCapability(SYSTEM_ADMIN_ROLE, GateWithFee, sig("setTokenAuthority(address)"))`
+  * [x] `GateRoles.setRoleCapability(SYSTEM_ADMIN_ROLE, GateWithFee, sig("setLimitController(address)"))`
+  * [x] `GateRoles.setRoleCapability(MONEY_OPERATOR_ROLE, GateWithFee, sig("mintWithFee(address,uint256,uint256)"))`
+  * [x] `GateRoles.setRoleCapability(MONEY_OPERATOR_ROLE, GateWithFee, sig("burnWithFee(address,uint256,uint256)"))`
+  * [x] `GateRoles.setRoleCapability(SYSTEM_ADMIN_ROLE, GateWithFee, sig("setFeeCollector(address)"))`
+  * [x] `GateRoles.setRoleCapability(SYSTEM_ADMIN_ROLE, GateWithFee, sig("setTransferFeeCollector(address)"))`
+  * [x] `GateRoles.setRoleCapability(SYSTEM_ADMIN_ROLE, GateWithFee, sig("setTransferFeeController(address)"))`
+  * [x] `GateRoles.setRoleCapability(SYSTEM_ADMIN_ROLE, GateWithFee, sig("setMintFeeCollector(address)"))`
+  * [x] `GateRoles.setRoleCapability(SYSTEM_ADMIN_ROLE, GateWithFee, sig("setBurnFeeCollector(address)"))`
+* [x] Set Guard Rules #1
+  * [x] `FiatToken.permit(GateWithFee, FiatToken, sig("setName(bytes32)"))`
+  * [x] `FiatToken.permit(GateWithFee, FiatToken, sig("mint(uint256)"))`
+  * [x] `FiatToken.permit(GateWithFee, FiatToken, sig("mint(address,uint256)"))`
+  * [x] `FiatToken.permit(GateWithFee, FiatToken, sig("burn(uint256)"))`
+  * [x] `FiatToken.permit(GateWithFee, FiatToken, sig("burn(address,uint256)"))`
+  * [x] `FiatToken.permit(GateWithFee, FiatToken, sig("setERC20Authority(address)"))`
+  * [x] `FiatToken.permit(GateWithFee, FiatToken, sig("setTokenAuthority(address)"))`
+  * [x] `FiatToken.permit(GateWithFee, FiatToken, sig("start()"))`
+  * [x] `FiatToken.permit(GateWithFee, FiatToken, sig("stop()"))`
+  * [x] `FiatToken.permit(GateWithFee, FiatToken, sig("setTransferFeeCollector(address)"))`
+  * [x] `FiatToken.permit(GateWithFee, FiatToken, sig("setTransferFeeController(address)"))`
+  * [x] `FiatToken.permit(GateWithFee, LimitController, sig("bumpMintLimitCounter(uint256)"))`
+  * [x] `FiatToken.permit(GateWithFee, LimitController, sig("bumpBurnLimitCounter(uint256)"))`
 
 <br />
 
@@ -117,8 +159,8 @@ in [test/test1results.txt](test/test1results.txt) and the detailed output saved 
   * [ ] contract FiatToken is DSToken, ERC20Auth, TokenAuth
 * [ ] [code-review/Gate.md](code-review/Gate.md)
   * [ ] contract Gate is DSSoloVault, ERC20Events, DSMath, DSStop
-* [ ] [code-review/GateRoles.md](code-review/GateRoles.md)
-  * [ ] contract GateRoles is DSRoles
+* [x] [code-review/GateRoles.md](code-review/GateRoles.md)
+  * [x] contract GateRoles is DSRoles
 * [ ] [code-review/GateWithFee.md](code-review/GateWithFee.md)
   * [ ] contract GateWithFee is Gate
 * [ ] [code-review/Kyc.md](code-review/Kyc.md)
@@ -178,199 +220,107 @@ in [test/test1results.txt](test/test1results.txt) and the detailed output saved 
 
 ### Outside Scope
 
-* [../../chain/contracts/Multisig.sol](../../chain/contracts/Multisig.sol) - **NOTE** *MultiSigWalletFactory* is included twice in this file
+* [../chain/contracts/Multisig.sol](../chain/contracts/Multisig.sol) - This is the Gnosis MultiSigWallet.sol and MultiSigWalletFactory.sol but the factory is included twice
 
+  [../chain/contracts/Multisig.sol](../chain/contracts/Multisig.sol) has been compared to [https://github.com/gnosis/MultiSigWallet/blob/e1b25e8632ca28e9e9e09c81bd20bf33fdb405ce/contracts/MultiSigWallet.sol](https://github.com/gnosis/MultiSigWallet/blob/e1b25e8632ca28e9e9e09c81bd20bf33fdb405ce/contracts/MultiSigWallet.sol) with the following results:
 
+      $ diff MultiSigWallet.sol ../../chain/contracts/Multisig.sol 
+      1,2c1
+      < pragma solidity ^0.4.15;
+      < 
+      ---
+      > pragma solidity 0.4.23;
+      393a393,431
+      > /// @title Multisignature wallet factory - Allows creation of multisig wallet.
+      > /// @author Stefan George - <stefan.george@consensys.net>
+      > contract MultiSigWalletFactory is Factory {
+      > 
+      >     /*
+      >      * Public functions
+      >      */
+      >     /// @dev Allows verified creation of multisignature wallet.
+      >     /// @param _owners List of initial owners.
+      >     /// @param _required Number of required confirmations.
+      >     /// @return Returns wallet address.
+      >     function create(address[] _owners, uint _required)
+      >         public
+      >         returns (address wallet)
+      >     {
+      >         wallet = new MultiSigWallet(_owners, _required);
+      >         register(wallet);
+      >     }
+      > }
+      > 
+      > /// @title Multisignature wallet factory - Allows creation of multisig wallet.
+      > /// @author Stefan George - <stefan.george@consensys.net>
+      > contract MultiSigWalletFactory is Factory {
+      > 
+      >     /*
+      >      * Public functions
+      >      */
+      >     /// @dev Allows verified creation of multisignature wallet.
+      >     /// @param _owners List of initial owners.
+      >     /// @param _required Number of required confirmations.
+      >     /// @return Returns wallet address.
+      >     function create(address[] _owners, uint _required)
+      >         public
+      >         returns (address wallet)
+      >     {
+      >         wallet = new MultiSigWallet(_owners, _required);
+      >         register(wallet);
+      >      }
+      > }
 
+  Here is the last section of the comparison of [../chain/contracts/Multisig.sol](../chain/contracts/Multisig.sol) to [https://github.com/gnosis/MultiSigWallet/blob/e1b25e8632ca28e9e9e09c81bd20bf33fdb405ce/contracts/MultiSigWalletFactory.sol](https://github.com/gnosis/MultiSigWallet/blob/e1b25e8632ca28e9e9e09c81bd20bf33fdb405ce/contracts/MultiSigWalletFactory.sol):
 
-
-
-----------------------------------
-
-
-# OneLedger Crowdsale Contract Audit
-
-## Summary
-
-[OneLedger](https://oneledger.io/) intends to run a crowdsale commencing on May 25 2018.
-
-Bok Consulting Pty Ltd was commissioned to perform an audit on the Ethereum smart contracts for OneLedger's crowdsale.
-
-This audit has been conducted on OneLedger's source code in commits
-[0892237](https://github.com/Oneledger/OLT/commit/0892237bd158f483e3cc03bf975d49b2bf376c62),
-[f1c5bb7](https://github.com/Oneledger/OLT/commit/f1c5bb7a439782a85204e9764598d695649098f4),
-[ea16049](https://github.com/Oneledger/OLT/commit/ea160497e62fa84ac5d057ecaf3a43175f4d0d00),
-[df0cd5d](https://github.com/Oneledger/OLT/commit/df0cd5d4eca6f2d216ffdea19e224ceda75e8e7a),
-[c88c6c4](https://github.com/Oneledger/OLT/commit/c88c6c4dcfe30ec111abd1dcfb4b1c5427231148) and
-[572e128](https://github.com/Oneledger/OLT/commit/572e128606be3fb3c03c38c8bd681848efd4d9f9).
-
-No potential vulnerabilities have been identified in the crowdsale, token and vesting contracts.
-
-<br />
-
-<hr />
-
-## Table Of Contents
-
-* [Summary](#summary)
-* [Recommendations](#recommendations)
-* [Potential Vulnerabilities](#potential-vulnerabilities)
-* [Scope](#scope)
-* [Limitations](#limitations)
-* [Due Diligence](#due-diligence)
-* [Risks](#risks)
-* [Testing](#testing)
-* [Code Review](#code-review)
-
-<br />
-
-<hr />
-
-## Recommendations
-
-* [x] **HIGH IMPORTANCE** A malicious third party can call `OneledgerTokenVesting.release(...)` with a token contract other than the real *OLT* token contract and deny the beneficiaries from ever receiving the real *OLT* tokens, as the `elapsedPeriods` variable can be made to update with the incorrect token contract
-  * [x] Fixed in [ea16049](https://github.com/Oneledger/OLT/commit/ea160497e62fa84ac5d057ecaf3a43175f4d0d00)
-* [x] **MEDIUM IMPORTANCE** To improve the security on the *OneledgerTokenVesting* contract, derive this class from *Ownable* and add `require(msg.sender == owner || msg.sender == beneficiary);` to  `OneledgerTokenVesting.release(...)`
-  * [x] Updated in [df0cd5d](https://github.com/Oneledger/OLT/commit/df0cd5d4eca6f2d216ffdea19e224ceda75e8e7a)
-* [x] **LOW IMPORTANCE** `OneledgerTokenVesting.getToken()` should be made a `view` function, or remove `getToken()` and make `token` public
-  * [x] Fixed in [df0cd5d](https://github.com/Oneledger/OLT/commit/df0cd5d4eca6f2d216ffdea19e224ceda75e8e7a)
-* [x] **LOW IMPORTANCE** `OneledgerToken.decimals` returns the `uint256` data type instead of `uint8` as recommended in the [ERC20 token standard]
-  * [x] Fixed in [df0cd5d](https://github.com/Oneledger/OLT/commit/df0cd5d4eca6f2d216ffdea19e224ceda75e8e7a)
-
-<br />
-
-<hr />
-
-## Potential Vulnerabilities
-
-No potential vulnerabilities have been identified in the crowdsale, token and vesting contracts.
-
-<br />
-
-<hr />
-
-## Scope
-
-This audit is into the technical aspects of the crowdsale contracts. The primary aim of this audit is to ensure that funds
-contributed to these contracts are not easily attacked or stolen by third parties. The secondary aim of this audit is to
-ensure the coded algorithms work as expected. This audit does not guarantee that that the code is bugfree, but intends to
-highlight any areas of weaknesses.
-
-<br />
-
-<hr />
-
-## Limitations
-
-This audit makes no statements or warranties about the viability of the OneLedger's business proposition, the individuals
-involved in this business or the regulatory regime for the business model.
-
-<br />
-
-<hr />
-
-## Due Diligence
-
-As always, potential participants in any crowdsale are encouraged to perform their due diligence on the business proposition
-before funding any crowdsales.
-
-Potential participants are also encouraged to only send their funds to the official crowdsale Ethereum address, published on
-the crowdsale beneficiary's official communication channel.
-
-Scammers have been publishing phishing address in the forums, twitter and other communication channels, and some go as far as
-duplicating crowdsale websites. Potential participants should NOT just click on any links received through these messages.
-Scammers have also hacked the crowdsale website to replace the crowdsale contract address with their scam address.
-
-Potential participants should also confirm that the verified source code on EtherScan.io for the published crowdsale address
-matches the audited source code, and that the deployment parameters are correctly set, including the constant parameters.
-
-<br />
-
-<hr />
-
-## Risks
-
-Ethers contributed to the crowdsale contract are transferred directly to the crowdsale wallet, and tokens are generated for the contributing account. This reduces the severity of any attacks on the crowdsale contract.
-
-The token contract is a simple extension of the OpenZeppelin library token contract that is used by many other tokens.
-
-Once the vesting contract is deployed, and tokens transferred to the vesting contract, only the beneficiary or the vesting contract owner is able to execute the token release function when the tokens are vested.
-
-<br />
-
-<hr />
-
-## Testing
-
-Details of the testing environment can be found in [test](test).
-
-The following functions were tested using the script [test/01_test1.sh](test/01_test1.sh) with the summary results saved
-in [test/test1results.txt](test/test1results.txt) and the detailed output saved in [test/test1output.txt](test/test1output.txt):
-
-* [x] Deploy crowdsale contract
-  * [x] Deploy token contract
-* [x] Whitelist accounts
-* [x] Contribute to the crowdsale contract during the 1st whitelist period with amount <= whitelisted amount
-* [x] Contribute to the crowdsale contract during the 1st whitelist period with amount <= whitelisted amount and rejecting double contributions
-* [x] Contribute to the crowdsale contract during the 2nd whitelist period with amount <= 2 x whitelisted amount
-* [x] Contribute to the crowdsale contract after the 2nd whitelist period with no whitelisted amount limits
-* [x] Crowdsale owner mint tokens
-* [x] Finalise crowdsale
-* [x] `transfer(...)`, `approve(...)` and `transferFrom(...)`
-* [x] Deploy vesting contract
-* [x] Transfer tokens to the vesting contract
-* [x] Beneficiary execute vesting token release function
-* [x] Vesting contract owner execute vesting token release function
-
-<br />
-
-<hr />
-
-## Code Review
-
-* [x] [code-review/ICO.md](code-review/ICO.md)
-  * [x] contract ICO is Ownable
-    * [x] using SafeMath for uint256;
-* [x] [code-review/OneledgerToken.md](code-review/OneledgerToken.md)
-  * [x] contract OneledgerToken is MintableToken
-    * [x] using SafeMath for uint256;
-* [x] [code-review/OneledgerTokenVesting.md](code-review/OneledgerTokenVesting.md)
-  * [x] contract OneledgerTokenVesting
-    * [x] using SafeMath for uint256;
-
-<br />
-
-### OpenZeppelin 1.10.0 Dependencies
-
-The version of OpenZeppelin was upgrade from 1.8.0 to 1.10.0 in [572e128](https://github.com/Oneledger/OLT/commit/572e128606be3fb3c03c38c8bd681848efd4d9f9).
-
-* [x] [openzeppelin-code-review/math/SafeMath.md](openzeppelin-code-review/math/SafeMath.md)
-  * [x] library SafeMath
-* [x] [openzeppelin-code-review/ownership/Ownable.md](openzeppelin-code-review/ownership/Ownable.md)
-  * [x] contract Ownable
-* [x] [openzeppelin-code-review/token/ERC20/ERC20Basic.md](openzeppelin-code-review/token/ERC20/ERC20Basic.md)
-  * [x] contract ERC20Basic
-* [x] [openzeppelin-code-review/token/ERC20/ERC20.md](openzeppelin-code-review/token/ERC20/ERC20.md)
-  * [x] contract ERC20 is ERC20Basic
-* [x] [openzeppelin-code-review/token/ERC20/BasicToken.md](openzeppelin-code-review/token/ERC20/BasicToken.md)
-  * [x] contract BasicToken is ERC20Basic
-    * [x] using SafeMath for uint256;
-* [x] [openzeppelin-code-review/token/ERC20/StandardToken.md](openzeppelin-code-review/token/ERC20/StandardToken.md)
-  * [x] contract StandardToken is ERC20, BasicToken
-* [x] [openzeppelin-code-review/token/ERC20/MintableToken.md](openzeppelin-code-review/token/ERC20/MintableToken.md)
-  * [x] contract MintableToken is StandardToken, Ownable
-
-<br />
-
-### Excluded - Only Used For Testing
-
-* [../contracts/Migrations.sol](../contracts/Migrations.sol)
+                                                                      >                _transactionIds = new uint[](to - from);
+                                                                      >                for (i=from; i<to; i++)
+                                                                      >                    _transactionIds[i - from] = transactionIdsTemp[i]
+                                                                      >            }
+                                                                      >        }
+        
+        /// @title Multisignature wallet factory - Allows creation of        /// @title Multisignature wallet factory - Allows creation of
+        /// @author Stefan George - <stefan.george@consensys.net>        /// @author Stefan George - <stefan.george@consensys.net>
+        contract MultiSigWalletFactory is Factory {                        contract MultiSigWalletFactory is Factory {
+        
+            /*                                                                    /*
+             * Public functions                                                     * Public functions
+             */                                                                     */
+            /// @dev Allows verified creation of multisignature walle            /// @dev Allows verified creation of multisignature walle
+            /// @param _owners List of initial owners.                            /// @param _owners List of initial owners.
+            /// @param _required Number of required confirmations.            /// @param _required Number of required confirmations.
+            /// @return Returns wallet address.                                    /// @return Returns wallet address.
+            function create(address[] _owners, uint _required)                    function create(address[] _owners, uint _required)
+                public                                                                public
+                returns (address wallet)                                        returns (address wallet)
+            {                                                                    {
+                wallet = new MultiSigWallet(_owners, _required);                wallet = new MultiSigWallet(_owners, _required);
+                register(wallet);                                                register(wallet);
+            }                                                                    }
+        }                                                                }
+        
+                                                                      >        /// @title Multisignature wallet factory - Allows creation of
+                                                                      >        /// @author Stefan George - <stefan.george@consensys.net>
+                                                                      >        contract MultiSigWalletFactory is Factory {
+                                                                      >
+                                                                      >            /*
+                                                                      >             * Public functions
+                                                                      >             */
+                                                                      >            /// @dev Allows verified creation of multisignature walle
+                                                                      >            /// @param _owners List of initial owners.
+                                                                      >            /// @param _required Number of required confirmations.
+                                                                      >            /// @return Returns wallet address.
+                                                                      >            function create(address[] _owners, uint _required)
+                                                                      >                public
+                                                                      >                returns (address wallet)
+                                                                      >            {
+                                                                      >                wallet = new MultiSigWallet(_owners, _required);
+                                                                      >                register(wallet);
+                                                                      >            }
+                                                                      >        }
 
 <br />
 
 <br />
 
-(c) Adrian Guerrera / Deepyr Pty Ltd for OAX Swim Gateway - Aug 14 2018. The MIT Licence.
-(c) BokkyPooBah / Bok Consulting Pty Ltd for OAX Swim Gateway - Aug 14 2018. The MIT Licence.
-
-[ERC20 token standard]: https://github.com/ethereum/EIPs/blob/master/EIPS/eip-20.md
+(c) BokkyPooBah / Bok Consulting Pty Ltd for OAX - Aug 13 2018. The MIT Licence.

@@ -1,4 +1,4 @@
-var GateRolesOutput={
+var gateRolesOutput={
   "contracts" : 
   {
     "GateRoles.sol:GateRoles" : 

@@ -9,12 +9,7 @@ var accounts = [];
 var accountNames = {};
 
 addAccount(eth.accounts[0], "Account #0 - Miner");
-<<<<<<< HEAD
-addAccount(eth.accounts[1], "Account #1 - Contract Owner");
-
-=======
 addAccount(eth.accounts[1], "Account #1 - Deployer");
->>>>>>> bokkypoobah/master
 addAccount(eth.accounts[2], "Account #2 - SysAdmin");
 addAccount(eth.accounts[3], "Account #3 - KycOperator");
 addAccount(eth.accounts[4], "Account #4 - MoneyOperator");
@@ -95,7 +90,7 @@ function printBalances() {
   var i = 0;
   var totalTokenABalance = new BigNumber(0);
   var totalTokenBBalance = new BigNumber(0);
-  console.log("RESULT:  # Account                                             EtherBalanceChange                 (Token A) WETH                  (Token B)  Name");
+  console.log("RESULT:  # Account                                             EtherBalanceChange                 (Token A) WETH                  (Token B) DAI Name");
   console.log("RESULT: -- ------------------------------------------ --------------------------- ------------------------------ ------------------------------ ---------------------------");
   accounts.forEach(function(e) {
     var etherBalanceBaseBlock = eth.getBalance(e, baseBlock);
@@ -152,7 +147,7 @@ function printTxData(name, txId) {
   var block = eth.getBlock(txReceipt.blockNumber);
   console.log("RESULT: " + name + " status=" + txReceipt.status + (txReceipt.status == 0 ? " Failure" : " Success") + " gas=" + tx.gas +
     " gasUsed=" + txReceipt.gasUsed + " costETH=" + gasCostETH + " costUSD=" + gasCostUSD +
-    " @ ETH/USD=" + ethPriceUSD + " gasPrice=" + web3.fromWei(gasPrice, "gwei") + " gwei block=" +
+    " @ ETH/USD=" + ethPriceUSD + " gasPrice=" + web3.fromWei(gasPrice, "gwei") + " gwei block=" + 
     txReceipt.blockNumber + " txIx=" + tx.transactionIndex + " txId=" + txId +
     " @ " + block.timestamp + " " + new Date(block.timestamp * 1000).toUTCString());
 }
