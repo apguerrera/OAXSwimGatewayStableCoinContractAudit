@@ -1,0 +1,82 @@
+ # Account                                             EtherBalanceChange                 (Token A) WETH                  (Token B)  Name
+-- ------------------------------------------ --------------------------- ------------------------------ ------------------------------ ---------------------------
+ 0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e        0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #0 - Miner
+ 1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433        0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #1 - Contract Owner
+ 2 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976        0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #2 - SysAdmin
+ 3 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0        0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #3 - KycOperator
+ 4 0xa44a08d3f6933c69212114bb66e2df1813651844        0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #4 - MoneyOperator
+ 5 0xa55a151eb00fded1634d27d1127b4be4627079ea        0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #5 - Customer3
+ 6 0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9        0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #6
+ 7 0xa77a2b9d4b1c010a22a7c565dc418cef683dbcec        0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #7
+ 8 0xa88a05d2b88283ce84c8325760b72a64591279a2        0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #8
+ 9 0xa99a0ae3354c06b1459fd441a32a3f71005d7da0        0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #9
+10 0xaaaa9de1e6c564446ebca0fd102d8bd92093c756        0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #10
+11 0xabba43e7594e3b76afb157989e93c6621497fd4b        0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #11
+-- ------------------------------------------ --------------------------- ------------------------------ ------------------------------ ---------------------------
+                                                                                    0.000000000000000000           0.000000000000000000 Total Token Balances
+-- ------------------------------------------ --------------------------- ------------------------------ ------------------------------ ---------------------------
+
+
+---------- Deploy GateRoles & FiatTokenGuard ----------
+---------- Deploy kycAmlStatus & AddressControlStatus & TransferFeeController ----------
+---------- Deploy kycAmlStatus & AddressControlStatus & TransferFeeController ----------
+---------- Deploy kycAmlStatus & AddressControlStatus & TransferFeeController ----------
+---------- Deploy LimitSetting & LimitController ----------
+---------- Deploy LimitSetting & LimitController ----------
+---------- Deploy NoKycAmlRule & BoundaryKycAmlRule & FullKycAmlRule ----------
+---------- Deploy NoKycAmlRule & BoundaryKycAmlRule & FullKycAmlRule ----------
+---------- Deploy NoKycAmlRule & BoundaryKycAmlRule & FullKycAmlRule ----------
+---------- Deploy Fiat Token ----------
+---------- Deploy Output ----------
+ # Account                                             EtherBalanceChange                 (Token A) WETH                  (Token B)  Name
+-- ------------------------------------------ --------------------------- ------------------------------ ------------------------------ ---------------------------
+ 0 0xa00af22d07c87d96eeeb0ed583f8f6ac7812827e        0.015725110000000000           0.000000000000000000           0.000000000000000000 Account #0 - Miner
+ 1 0xa11aae29840fbb5c86e6fd4cf809eba183aef433       -0.015725110000000000           0.000000000000000000           0.000000000000000000 Account #1 - Contract Owner
+ 2 0xa22ab8a9d641ce77e06d98b7d7065d324d3d6976        0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #2 - SysAdmin
+ 3 0xa33a6c312d9ad0e0f2e95541beed0cc081621fd0        0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #3 - KycOperator
+ 4 0xa44a08d3f6933c69212114bb66e2df1813651844        0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #4 - MoneyOperator
+ 5 0xa55a151eb00fded1634d27d1127b4be4627079ea        0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #5 - Customer3
+ 6 0xa66a85ede0cbe03694aa9d9de0bb19c99ff55bd9        0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #6
+ 7 0xa77a2b9d4b1c010a22a7c565dc418cef683dbcec        0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #7
+ 8 0xa88a05d2b88283ce84c8325760b72a64591279a2        0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #8
+ 9 0xa99a0ae3354c06b1459fd441a32a3f71005d7da0        0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #9
+10 0xaaaa9de1e6c564446ebca0fd102d8bd92093c756        0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #10
+11 0xabba43e7594e3b76afb157989e93c6621497fd4b        0.000000000000000000           0.000000000000000000           0.000000000000000000 Account #11
+12 0x90d8927407c79c4a28ee879b821c76fc9bcc2688        0.000000000000000000           0.000000000000000000           0.000000000000000000 GateRoles
+13 0x0e946b999033257976aa5cbe0e3530618ca1582d        0.000000000000000000           0.000000000000000000           0.000000000000000000 FiatTokenGuard
+14 0xdf9f36fd5654d92e0844c78d2d2dd562404cd1ff        0.000000000000000000           0.000000000000000000           0.000000000000000000 KycAmlStatus
+15 0xe6ada9beed6e24be4c0259383db61b52bfca85f3        0.000000000000000000           0.000000000000000000           0.000000000000000000 AddressControlStatus
+16 0xf4441f10804b35b13bad1e664e32237773276253        0.000000000000000000           0.000000000000000000           0.000000000000000000 TransferFeeController
+17 0x57930444aa5c1e758c1407ded001a8f36aa80b1d        0.000000000000000000           0.000000000000000000           0.000000000000000000 LimitSetting
+18 0x936e75a404fc4ea6aba4d9c3b20ea67abab3188a        0.000000000000000000           0.000000000000000000           0.000000000000000000 LimitController
+19 0xb8c31f47dfba40162326aba12cd577ae5cb2ce99        0.000000000000000000           0.000000000000000000           0.000000000000000000 NoKycAmlRule
+20 0x0a91add9e3e97057980da7826043aab2a2d4c35b        0.000000000000000000           0.000000000000000000           0.000000000000000000 BoundaryKycAmlRule
+21 0x821ca8becdbfb00ca55e722908796a375bc2d538        0.000000000000000000           0.000000000000000000           0.000000000000000000 FullKycAmlRule
+22 0x8b97d31ff6bfc0c2fd7a0fff69d6b4bd485a832b        0.000000000000000000           0.000000000000000000           0.000000000000000000 FiatToken
+-- ------------------------------------------ --------------------------- ------------------------------ ------------------------------ ---------------------------
+                                                                                    0.000000000000000000           0.000000000000000000 Total Token Balances
+-- ------------------------------------------ --------------------------- ------------------------------ ------------------------------ ---------------------------
+
+PASS Deploy GateRoles & FiatTokenGuard - GateRoles
+PASS Deploy GateRoles & FiatTokenGuard - FiatTokenGuard
+PASS Deploy kycAmlStatus & AddressControlStatus & TransferFeeController - KycAmlStatus
+PASS Deploy kycAmlStatus & AddressControlStatus & TransferFeeController - AddressControlStatus
+PASS Deploy kycAmlStatus & AddressControlStatus & TransferFeeController - TransferFeeController
+PASS Deploy LimitSetting & LimitController - LimitSetting
+PASS Deploy LimitSetting & LimitController - LimitController
+PASS Deploy NoKycAmlRule & BoundaryKycAmlRule & FullKycAmlRule - NoKycAmlRule
+PASS Deploy NoKycAmlRule & BoundaryKycAmlRule & FullKycAmlRule - BoundaryKycAmlRule
+PASS Deploy NoKycAmlRule & BoundaryKycAmlRule & FullKycAmlRule - FullKycAmlRule
+PASS Set Contract Roles - FiatToken
+gateRolesTx status=0x1 Success gas=6000000 gasUsed=715473 costETH=0.001430946 costUSD=0.6233916249 @ ETH/USD=435.65 gasPrice=2 gwei block=3082 txIx=0 txId=0xa6103ded34563a45c0c97b06f3146df8ce6bf6935e0702cf3b2cc6f3ccb4f3a5 @ 1533967450 Sat, 11 Aug 2018 06:04:10 UTC
+fiatTokenGuardTx status=0x1 Success gas=6000000 gasUsed=603088 costETH=0.001206176 costUSD=0.5254705744 @ ETH/USD=435.65 gasPrice=2 gwei block=3082 txIx=1 txId=0x24f1c376b177050f0e28d5b0bf6160838540869fd4c6d77021fedc2027b25aab @ 1533967450 Sat, 11 Aug 2018 06:04:10 UTC
+kycAmlStatusTx status=0x1 Success gas=6000000 gasUsed=445933 costETH=0.000891866 costUSD=0.3885414229 @ ETH/USD=435.65 gasPrice=2 gwei block=3084 txIx=0 txId=0xbb209576da7fc05872f746cb4d1ad3520c06a6e13844f542db39d27136ac3505 @ 1533967452 Sat, 11 Aug 2018 06:04:12 UTC
+addressControlStatusTx status=0x1 Success gas=6000000 gasUsed=459421 costETH=0.000918842 costUSD=0.4002935173 @ ETH/USD=435.65 gasPrice=2 gwei block=3084 txIx=1 txId=0x08bf9c99243982a16662bae6caba94e4fa910b22e393eb99c128166aa7f32d48 @ 1533967452 Sat, 11 Aug 2018 06:04:12 UTC
+transferFeeControllerTx status=0x1 Success gas=6000000 gasUsed=496909 costETH=0.000993818 costUSD=0.4329568117 @ ETH/USD=435.65 gasPrice=2 gwei block=3084 txIx=2 txId=0x087f09ac5551a3b0fb493806349facccc2276320fc1f53d2e2c63ef4c1f48ca8 @ 1533967452 Sat, 11 Aug 2018 06:04:12 UTC
+limitSettingTx status=0x1 Success gas=6000000 gasUsed=1360009 costETH=0.002720018 costUSD=1.1849758417 @ ETH/USD=435.65 gasPrice=2 gwei block=3084 txIx=3 txId=0x073a0ad77902027b01feac74877f8057ceb1168b5a03d05954727cac6d636af1 @ 1533967452 Sat, 11 Aug 2018 06:04:12 UTC
+limitControllerTx status=0x1 Success gas=6000000 gasUsed=892799 costETH=0.001785598 costUSD=0.7778957687 @ ETH/USD=435.65 gasPrice=2 gwei block=3086 txIx=0 txId=0xbb7df1ab31ff5bcefdad1bf84b2d57cdffa967e78e36ef4688d05562f9783e4c @ 1533967454 Sat, 11 Aug 2018 06:04:14 UTC
+noKycAmlRuleTx status=0x1 Success gas=6000000 gasUsed=339842 costETH=0.000679684 costUSD=0.2961043346 @ ETH/USD=435.65 gasPrice=2 gwei block=3088 txIx=0 txId=0x958d9a5d9e934c52d34836825462351cb263bb0bc06b96acdbeaac5377d82521 @ 1533967456 Sat, 11 Aug 2018 06:04:16 UTC
+boundaryKycAmlRuleTx status=0x1 Success gas=6000000 gasUsed=407600 costETH=0.0008152 costUSD=0.35514188 @ ETH/USD=435.65 gasPrice=2 gwei block=3088 txIx=1 txId=0x912170f6e6d97dfdf12baeade99ad6feb4e7d4146beb74030f51faf408b667a8 @ 1533967456 Sat, 11 Aug 2018 06:04:16 UTC
+fullKycAmlRuleTx status=0x1 Success gas=6000000 gasUsed=501757 costETH=0.001003514 costUSD=0.4371808741 @ ETH/USD=435.65 gasPrice=2 gwei block=3088 txIx=2 txId=0x1022a97197ca8409de968ce335eff605693de5e3fed159be982b279b87850083 @ 1533967456 Sat, 11 Aug 2018 06:04:16 UTC
+fiatTokenTx status=0x1 Success gas=6000000 gasUsed=1639724 costETH=0.003279448 costUSD=1.4286915212 @ ETH/USD=435.65 gasPrice=2 gwei block=3090 txIx=0 txId=0x9a91151d2258a4d74551b1982ddac2c952547f797fea7d60b80634b1c5d5dd79 @ 1533967458 Sat, 11 Aug 2018 06:04:18 UTC
+
