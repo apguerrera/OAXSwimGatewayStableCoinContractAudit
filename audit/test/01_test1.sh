@@ -5,6 +5,9 @@
 # Enjoy. (c) BokkyPooBah / Bok Consulting Pty Ltd 2017. The MIT Licence.
 # ----------------------------------------------------------------------------------------------
 
+
+brew install https://raw.githubusercontent.com/ethereum/homebrew-ethereum/9c1da746bbfc9e60831d37d01436a41f4464f0e1/solidity.rb
+
 source settings
 echo "---------- Settings ----------" | tee $TEST1OUTPUT
 cat ./settings | tee -a $TEST1OUTPUT
@@ -679,6 +682,46 @@ failIfTxStatusError(transferOwnership11_1Tx, transferOwnership11Message + " - ga
 printTxData("transferOwnership11_1Tx", transferOwnership11_1Tx);
 printGateRolesContractDetails();
 console.log("RESULT: ");
+
+// -----------------------------------------------------------------------------
+var transferOwnership2Message = "Transfer Ownership #2";
+// -----------------------------------------------------------------------------
+console.log("RESULT: ---------- " + transferOwnership2Message + " ----------");
+var transferOwnership2_1Tx = gateWithFee.setMintFeeCollector(sysAdmin, {from: sysAdmin, gas: 400000, gasPrice: defaultGasPrice});
+var transferOwnership2_1Output =gateWithFee.mintFeeCollector();
+var transferOwnership2_2Tx = gateWithFee.setMintFeeCollector(mintFeeCollector, {from: sysAdmin, gas: 400000, gasPrice: defaultGasPrice});
+var transferOwnership2_2Output =gateWithFee.mintFeeCollector();
+
+while (txpool.status.pending > 0) {
+}
+printBalances();
+failIfTxStatusError(transferOwnership2_1Tx, transferOwnership2Message + " - gateWithFee.setMintFeeCollector(sysAdmin)");
+printTxData("transferOwnership2_2Tx", transferOwnership2_2Tx);
+printTxData("transferOwnership2_1Output", transferOwnership2_1Output);
+
+failIfTxStatusError(transferOwnership2_2Tx, transferOwnership2Output + " - gateWithFee.setMintFeeCollector(sysAdmin)");
+printTxData("transferOwnership2_2Tx", transferOwnership2_2Tx);
+printTxData("transferOwnership2_2Output", transferOwnership2_2Output);
+
+// printGateRolesContractDetails();
+console.log("RESULT: ");
+
+
+// -----------------------------------------------------------------------------
+var mintTokenMessage = "Mint with dynamic fee";
+var tokenNumber = "10000";
+var tokenFee = "25";
+// -----------------------------------------------------------------------------
+console.log("RESULT: ---------- " + mintTokenMessage + " ----------");
+var mintTokenWithFee_1Tx = gateWithFee.mintWithFee(account8,tokenNumber,tokenFee,{from: moneyOperator, gas: 400000, gasPrice: defaultGasPrice});
+failIfTxStatusError(mintTokenWithFee_1Tx, mintTokenMessage + " - gateWithFee.mintWithFee(account8,tokenNumber,tokenFee)");
+printTxData("mintTokenWithFee_1Tx", mintTokenWithFee_1Tx);
+// fiatToken.totalSupply();
+while (txpool.status.pending > 0) {
+}
+printBalances();
+console.log("RESULT: ");
+
 
 
 EOF
