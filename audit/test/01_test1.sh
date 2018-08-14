@@ -576,7 +576,7 @@ var setRoleRules2_14Tx = gateRoles.setRoleCapability(SYSTEM_ADMIN_ROLE, gateWith
 var setRoleRules2_15Tx = gateRoles.setRoleCapability(SYSTEM_ADMIN_ROLE, gateWithFeeAddress, web3.sha3("setTransferFeeCollector(address)").substring(0, 10), true, {from: deployer, gas: 400000, gasPrice: defaultGasPrice});
 var setRoleRules2_16Tx = gateRoles.setRoleCapability(SYSTEM_ADMIN_ROLE, gateWithFeeAddress, web3.sha3("setTransferFeeController(address)").substring(0, 10), true, {from: deployer, gas: 400000, gasPrice: defaultGasPrice});
 var setRoleRules2_17Tx = gateRoles.setRoleCapability(SYSTEM_ADMIN_ROLE, gateWithFeeAddress, web3.sha3("setMintFeeCollector(address)").substring(0, 10), true, {from: deployer, gas: 400000, gasPrice: defaultGasPrice});
-var setRoleRules2_18Tx = gateRoles.setRoleCapability(SYSTEM_ADMIN_ROLE, gateWithFeeAddress, web3.sha3("setBurnFeeCollector(address)").substring(0, 10), true, {from: deployer, gas: 400000, gasPrice: defaultGasPrice});
+var setRoleRules2_18Tx = gateRoles.setRoleCapability(SYSTEM_ADMIN_ROLE, gateWithFeeAddress, web3.sha3("setBurnFeeCollector(address)").substring(0, 10), true, {from: deployer, gas: 400000, gasPrice: defaultGasPrice})
 while (txpool.status.pending > 0) {
 }
 printBalances();
@@ -737,13 +737,24 @@ console.log("RESULT: ");
 // gateRoles.hasUserRole(deployer,"1"); -> false
 // gateRoles.setUserRole(sysAdmin,"1",false,{from: deployer, gas: 400000, gasPrice: defaultGasPrice});
 // gateRoles.hasUserRole(sysAdmin,"1"); -> true  ( didnt work)
+
 // gateRoles.setUserRole(deployer,"1",true,{from: sysAdmin, gas: 400000, gasPrice: defaultGasPrice});
 // gateRoles.hasUserRole(deployer,"1"); -> true
+
 // gateRoles.setUserRole(sysAdmin,"1",false,{from: deployer, gas: 400000, gasPrice: defaultGasPrice});
 // gateRoles.hasUserRole(sysAdmin,"1"); -> true ( didnt work)
 // gateRoles.setUserRole(deployer,"1",false,{from: sysAdmin, gas: 400000, gasPrice: defaultGasPrice});
 // gateRoles.hasUserRole(deployer,"1"); -> false
 
+// missing
+gateRoles.setRoleCapability(SYSTEM_ADMIN_ROLE, web3.sha3("setUserRole(address,uint8,bool)").substring(0, 10), true, {from: deployer, gas: 400000, gasPrice: defaultGasPrice});
+
+,web3.sha3("setUserRole(address,uint8,bool)").substring(0, 10));
+
+
+
+> limitSetting.getBurnDailyLimit("0xa88a05d2b88283ce84c8325760b72a64591279a2", {from: deployer, gas: 400000, gasPrice: defaultGasPrice});
+"0x02086c363a84ceba363a77ad299a59000f58664859ec9d3c808a67aa9abee38b"  -> Should be 0?
 
 EOF
 grep "DATA: " $TEST1OUTPUT | sed "s/DATA: //" > $DEPLOYMENTDATA
