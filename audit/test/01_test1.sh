@@ -722,6 +722,27 @@ while (txpool.status.pending > 0) {
 printBalances();
 console.log("RESULT: ");
 
+// -----------------------------------------------------------------------------
+// User GateRoles
+// -----------------------------------------------------------------------------
+// - Initial deployer can add Sysadmin addresses. false, only sysadmin
+// gateRoles.hasUserRole(account9,"1");  -> false
+// gateRoles.setUserRole(account9,"1",true,{from: deployer, gas: 400000, gasPrice: defaultGasPrice});
+// gateRoles.hasUserRole(account9,"1");  -> false
+// gateRoles.setUserRole(account9,"1",true,{from: sysAdmin, gas: 400000, gasPrice: defaultGasPrice});
+// gateRoles.hasUserRole(account9,"1");  -> true
+
+// - Initial deployer can remove Sysadmin addresses. false, only sysadmin
+// gateRoles.hasUserRole(sysAdmin,"1"); -> true
+// gateRoles.hasUserRole(deployer,"1"); -> false
+// gateRoles.setUserRole(sysAdmin,"1",false,{from: deployer, gas: 400000, gasPrice: defaultGasPrice});
+// gateRoles.hasUserRole(sysAdmin,"1"); -> true  ( didnt work)
+// gateRoles.setUserRole(deployer,"1",true,{from: sysAdmin, gas: 400000, gasPrice: defaultGasPrice});
+// gateRoles.hasUserRole(deployer,"1"); -> true
+// gateRoles.setUserRole(sysAdmin,"1",false,{from: deployer, gas: 400000, gasPrice: defaultGasPrice});
+// gateRoles.hasUserRole(sysAdmin,"1"); -> true ( didnt work)
+// gateRoles.setUserRole(deployer,"1",false,{from: sysAdmin, gas: 400000, gasPrice: defaultGasPrice});
+// gateRoles.hasUserRole(deployer,"1"); -> false
 
 
 EOF

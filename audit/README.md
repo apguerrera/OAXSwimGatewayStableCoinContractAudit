@@ -218,23 +218,100 @@ in [test/test1results.txt](test/test1results.txt) and the detailed output saved 
 
 <br />
 
+### Adrian Guerrera Comments
+#### dappsys.sol
+
+L123  - require(isAuthorized(msg.sender, msg.sig));
+        Could add error saying "DSAuthority is mandatory" as it may occur often.
+
+L351-376  - function  hasUserRole ( )  & setUserRole( )
+ Not sure what this does, worth having a look...
+        bytes32 shifted = bytes32(uint256(uint256(2) ** uint256(role)));
+        return bytes32(0) != roles & shifted;
+
+L419  - function transferFrom(address src, address dst, uint wad)
+        Extra underflow checks for transferring, as per your workshop
+
+L453  - contract DSToken is DSTokenBase(0), DSStop {
+    DSTokenBase(0) - should it have a (0) ?
+
+L499 & L502  - function mint(uint wad) & burn( )
+        Should also be modified with auth?
+
+L520  -  bytes32  public  name = "";
+    Not in constructor? - BK: All good
+
+kyc.sol
+L41  - function canApprove( )
+       return (!addressControlStatus.frozenAddress(guy));   -> could be modifier as its used a few times.
+
+#### LimitController.sol
+
+L30 - isWithinMintLimit( )
+      if (now - lastLimitResetTime >= 1 days)  -> could add safe math and additional brackets   ie (sub(now,lastLimitResetTime) >= 1 days)
+
+L36  - limitSetting.getMintDailyLimit(0x0)
+        Was originally passing (guy) but now passing (0x0)..Not clear how global MintDailyLimit is incremented?
+
+#### LimitSetting.sol
+
+L76  - function setSettingDefaultDelayHours(uint256 hours) public auth  
+        defaultDelayHoursBuffer = hours * 1 hours;
+        -> could use safe math for multiplication
+        -> decalred variables dont seam to be called anywhere.
+        -> could be used during deployment and changes.
+
+L106   - function setCustomMintDailyLimit(address guy, uint256 limit) public auth {
+      Could add global limit condition here, as well as the custom limit.
+
+L126   - function setCustomBurnDailyLimit(address guy, uint256 limit) public auth {
+        Could add global limits for burning tokens.
+        Could also require not to burn more that the outstanding total supply
+
+L145  - function getMintDailyLimit ( );  
+            getDefaultDelayHours() == 0. when not initialled will always default to 0, could be an issue depending on how its deployed.
+
+#### multisig.sol
+L395   -  Duplicate function at bottom.   BK: Noted
+L409   -  register(wallet);    No function called register
+
+TransferFeeController.sol
+L28   - Could benifit from safe math.
+        Could also add warning that fee exceeds 0.1 basis points.
+
+#### Membership.sol
+L1    -  change to 0.4.23?
+L14   -  return status(guy); ->   return status[guy];  
+         Change from function() to index[]
+
+#### Deploy
+
+Couldn't mint tokens - Authority??
+gateWithFee.mintWithFee(sysAdmin,"10000","25",{from: "0xa44a08d3f6933c69212114bb66e2df1813651844", gas: 400000, gasPrice: defaultGasPrice});
+
+Couldnt interact with inherited gate.sol contract functions when deployed.
+
+Set Roles - Need have Authority as well as have correct user role
+gateRoles.setUserRole(deployer,"1",true,{from: sysAdmin, gas: 400000, gasPrice: defaultGasPrice});
+
+
 ### Outside Scope
 
 * [../chain/contracts/Multisig.sol](../chain/contracts/Multisig.sol) - This is the Gnosis MultiSigWallet.sol and MultiSigWalletFactory.sol but the factory is included twice
 
   [../chain/contracts/Multisig.sol](../chain/contracts/Multisig.sol) has been compared to [https://github.com/gnosis/MultiSigWallet/blob/e1b25e8632ca28e9e9e09c81bd20bf33fdb405ce/contracts/MultiSigWallet.sol](https://github.com/gnosis/MultiSigWallet/blob/e1b25e8632ca28e9e9e09c81bd20bf33fdb405ce/contracts/MultiSigWallet.sol) with the following results:
 
-      $ diff MultiSigWallet.sol ../../chain/contracts/Multisig.sol 
+      $ diff MultiSigWallet.sol ../../chain/contracts/Multisig.sol
       1,2c1
       < pragma solidity ^0.4.15;
-      < 
+      <
       ---
       > pragma solidity 0.4.23;
       393a393,431
       > /// @title Multisignature wallet factory - Allows creation of multisig wallet.
       > /// @author Stefan George - <stefan.george@consensys.net>
       > contract MultiSigWalletFactory is Factory {
-      > 
+      >
       >     /*
       >      * Public functions
       >      */
@@ -250,11 +327,11 @@ in [test/test1results.txt](test/test1results.txt) and the detailed output saved 
       >         register(wallet);
       >     }
       > }
-      > 
+      >
       > /// @title Multisignature wallet factory - Allows creation of multisig wallet.
       > /// @author Stefan George - <stefan.george@consensys.net>
       > contract MultiSigWalletFactory is Factory {
-      > 
+      >
       >     /*
       >      * Public functions
       >      */
@@ -278,11 +355,11 @@ in [test/test1results.txt](test/test1results.txt) and the detailed output saved 
                                                                       >                    _transactionIds[i - from] = transactionIdsTemp[i]
                                                                       >            }
                                                                       >        }
-        
+
         /// @title Multisignature wallet factory - Allows creation of        /// @title Multisignature wallet factory - Allows creation of
         /// @author Stefan George - <stefan.george@consensys.net>        /// @author Stefan George - <stefan.george@consensys.net>
         contract MultiSigWalletFactory is Factory {                        contract MultiSigWalletFactory is Factory {
-        
+
             /*                                                                    /*
              * Public functions                                                     * Public functions
              */                                                                     */
@@ -298,7 +375,7 @@ in [test/test1results.txt](test/test1results.txt) and the detailed output saved 
                 register(wallet);                                                register(wallet);
             }                                                                    }
         }                                                                }
-        
+
                                                                       >        /// @title Multisignature wallet factory - Allows creation of
                                                                       >        /// @author Stefan George - <stefan.george@consensys.net>
                                                                       >        contract MultiSigWalletFactory is Factory {
